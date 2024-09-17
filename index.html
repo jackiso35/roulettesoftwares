@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rulet Ürünleri - Kripto Ödeme Sistemi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        #products {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .product-card {
+            background-color: white;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .product-card img {
+            max-width: 150px;
+            border-radius: 8px;
+        }
+
+        .select-button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .select-button:hover {
+            background-color: #218838;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #payment-section {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #payment-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #payment-form input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #payment-form button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #payment-form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ürün Sayfası -->
+    <section id="products">
+        <h1>Rulet Ürünleri</h1>
+        <div class="product-card">
+            <img src="urun1.jpg" alt="Ürün 1">
+            <p>Ürün 1 - Kısa bilgi yazısı</p>
+            <button class="select-button" onclick="openPayment('Ürün 1')">SEÇ</button>
+        </div>
+        <div class="product-card">
+            <img src="urun2.jpg" alt="Ürün 2">
+            <p>Ürün 2 - Kısa bilgi yazısı</p>
+            <button class="select-button" onclick="openPayment('Ürün 2')">SEÇ</button>
+        </div>
+        <!-- Diğer ürünler burada listelenebilir -->
+    </section>
+
+    <!-- Ödeme Sayfası -->
+    <section id="payment-section" class="hidden">
+        <h2>Ödeme Sayfası</h2>
+        <p>Seçilen Ürün: <span id="selected-product"></span></p>
+        <p>USDT TRC20 Ödeme Adresi: <span id="crypto-address">TRC20_ÖDEME_ADRESİNİZ</span></p>
+        <button onclick="copyAddress()">Adresi Kopyala</button>
+        <p>Ödemeyi yaptıktan sonra aşağıdaki formu doldurarak bildirim yapın.</p>
+        <form id="payment-form">
+            <label for="txid">İşlem Kimliği (TxID):</label>
+            <input type="text" id="txid" name="txid" required>
+
+            <label for="name">Adınız:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">E-posta:</label>
+            <input type="email" id="email" name="email" required>
+
+            <button type="submit">Ödeme Bildirimi Gönder</button>
+        </form>
+    </section>
+
+    <script>
+        function openPayment(productName) {
+            document.getElementById('products').classList.add('hidden');
+            document.getElementById('payment-section').classList.remove('hidden');
+            document.getElementById('selected-product').innerText = productName;
+        }
+
+        function copyAddress() {
+            const cryptoAddress = document.getElementById('crypto-address').innerText;
+            navigator.clipboard.writeText(cryptoAddress).then(() => {
+                alert('Kripto adresi kopyalandı!');
+            }, () => {
+                alert('Kripto adresi kopyalanamadı!');
+            });
+        }
+
+        // Ödeme formu gönderimi
+        document.getElementById('payment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const txid = document.getElementById('txid').value;
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            // Ödeme bildirimini işleyebilir veya sunucuya gönderebilirsiniz.
+            alert('Ödeme bildirimi gönderildi: ' + txid);
+        });
+    </script>
+
+</body>
+</html>
