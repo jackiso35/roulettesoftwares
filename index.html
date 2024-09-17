@@ -3,33 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kripto Ödeme Bildirimi</title>
+    <title>Rulet Ürünleri - Kripto Ödeme Sistemi</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
         }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
-        h1 {
+
+        h1, h2 {
             text-align: center;
-            margin-bottom: 20px;
+            margin: 20px 0;
         }
+
+        #products {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .product-card {
+            background-color: white;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .product-card img {
+            max-width: 150px;
+            border-radius: 8px;
+        }
+
+        .select-button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .select-button:hover {
+            background-color: #218838;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #payment-section {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .google-form-container {
+            margin-top: 20px;
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Kripto Ödeme Bildirimi</h1>
-        <!-- Google Form Embed Kodu Buraya Eklenecek -->
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfDnQ6QVKtGNePso4QmZWsZ9kV4fAtsGzZhUmZsTZF9wZ8qw/viewform?embedded=true" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-    </div>
+
+    <!-- Ürün Sayfası -->
+    <section id="products">
+        <h1>Rulet Ürünleri</h1>
+        <div class="product-card">
+            <img src="urun1.jpg" alt="Ürün 1">
+            <p>Ürün 1 - Kısa bilgi yazısı</p>
+            <button class="select-button" onclick="openPayment('Ürün 1')">SEÇ</button>
+        </div>
+        <div class="product-card">
+            <img src="urun2.jpg" alt="Ürün 2">
+            <p>Ürün 2 - Kısa bilgi yazısı</p>
+            <button class="select-button" onclick="openPayment('Ürün 2')">SEÇ</button>
+        </div>
+        <!-- Diğer ürünler burada listelenebilir -->
+    </section>
+
+    <!-- Ödeme Sayfası -->
+    <section id="payment-section" class="hidden">
+        <h2>Ödeme Sayfası</h2>
+        <p>Seçilen Ürün: <span id="selected-product"></span></p>
+        <p>USDT TRC20 Ödeme Adresi: <span id="crypto-address">TRC20_ÖDEME_ADRESİNİZ</span></p>
+        <button onclick="copyAddress()">Adresi Kopyala</button>
+
+        <!-- Google Form'un yer aldığı bölüm -->
+        <div class="google-form-container">
+            <h3>Ödeme Bildirimi Formu</h3>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfDnQ6QVKtGNePso4QmZWsZ9kV4fAtsGzZhUmZsTZF9wZ8qw/viewform?embedded=true" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">Yükleniyor…</iframe>
+        </div>
+    </section>
+
+    <script>
+        function openPayment(productName) {
+            document.getElementById('products').classList.add('hidden');
+            document.getElementById('payment-section').classList.remove('hidden');
+            document.getElementById('selected-product').innerText = productName;
+        }
+
+        function copyAddress() {
+            const cryptoAddress = document.getElementById('crypto-address').innerText;
+            navigator.clipboard.writeText(cryptoAddress).then(() => {
+                alert('Kripto adresi kopyalandı!');
+            }, () => {
+                alert('Kripto adresi kopyalanamadı!');
+            });
+        }
+    </script>
+
 </body>
 </html>
